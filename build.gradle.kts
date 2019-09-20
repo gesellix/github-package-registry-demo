@@ -9,6 +9,11 @@ repositories {
     setUrl("https://maven.pkg.github.com/gesellix/github-package-registry-demo")
     // doesn't work
 //    setUrl("https://maven.pkg.github.com/gesellix")
+
+    credentials {
+      username = System.getenv("GITHUB_ACTOR") ?: findProperty("github.package-registry.username") as String
+      password = System.getenv("GITHUB_TOKEN") ?: findProperty("github.package-registry.password") as String
+    }
   }
 }
 

@@ -2,8 +2,8 @@ plugins {
   `java-library`
   groovy
   `maven-publish`
-  id("io.freefair.github.package-registry-maven-publish") version "4.0.2"
-  id("com.github.ben-manes.versions") version "0.24.0"
+  id("io.freefair.github.package-registry-maven-publish") version "4.1.2"
+  id("com.github.ben-manes.versions") version "0.25.0"
 }
 
 repositories {
@@ -32,7 +32,7 @@ github {
 
 publishing {
   publications {
-    register("publication-name", MavenPublication::class) {
+    register("publicationName", MavenPublication::class) {
       from(components["java"])
       groupId = "de.gesellix"
       artifactId = "pkg-registry-demo"

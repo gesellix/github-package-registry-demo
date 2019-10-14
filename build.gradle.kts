@@ -22,4 +22,7 @@ dependencies {
   api("de.gesellix:pkg-registry-demo:0.0.1")
   // doesn't work
 //  api("de.gesellix:pkg-registry-demo:+")
+//  api("de.gesellix:pkg-registry-demo:latest")
+//  api("de.gesellix:pkg-registry-demo:latest.release")
+//  api("de.gesellix:pkg-registry-demo:(0+,)")
 }

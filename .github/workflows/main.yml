@@ -27,3 +27,5 @@ jobs:
           java -cp out de.gesellix.example.EnvironmentPrinter
       - name: Print env in Gradle
         run: ./gradlew tasks --info --stacktrace
+      - name: Print env in Gradle (2)
+        run: ./gradlew tasks --info --stacktrace -Pgradle.publish.test=${{ env.ORG_GRADLE_PROJECT_gradle.publish.test }}

@@ -6,9 +6,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      ORG_GRADLE_PROJECT_gradle.publish.test: foobar
-      ORG_GRADLE_PROJECT_gradle_publish_test: foobar
-      gradle_publish_test_property: foobar
+      ORG_GRADLE_PROJECT_gradle.publish.test: ${{ secrets.GRADLE_PUBLISH_TEST }}
+      ORG_GRADLE_PROJECT_gradle_publish_test: ${{ secrets.GRADLE_PUBLISH_TEST }}
+      gradle_publish_test_property: ${{ secrets.GRADLE_PUBLISH_TEST }}
     steps:
       - uses: actions/checkout@v1
         with:

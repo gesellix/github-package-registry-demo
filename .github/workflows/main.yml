@@ -28,4 +28,4 @@ jobs:
       - name: Print env in Gradle
         run: ./gradlew tasks --info --stacktrace
       - name: Print env in Gradle (2)
-        run: ./gradlew tasks --info --stacktrace -Pgradle.publish.test=${{ env.ORG_GRADLE_PROJECT_gradle.publish.test }}
+        run: ./gradlew tasks --info --stacktrace -Pgradle.publish.test="$(awk 'BEGIN {print ENVIRON["ORG_GRADLE_PROJECT_gradle.publish.test"]}')"

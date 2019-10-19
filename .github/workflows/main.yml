@@ -1,0 +1,29 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ORG_GRADLE_PROJECT_gradle.publish.test: foobar
+      ORG_GRADLE_PROJECT_gradle_publish_test: foobar
+      gradle_publish_test_property: foobar
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Print env in Shell
+#        run: echo ORG_GRADLE_PROJECT_gradle.publish.test | awk '{print ENVIRON[$1]}'
+#        run: env "ORG_GRADLE_PROJECT_gradle.publish.test=meeeeeehhhh" echo "${ORG_GRADLE_PROJECT_gradle.publish.test}"
+        run: env
+      - name: Print env in JVM
+        run: >
+          javac -d out src/main/java/de/gesellix/example/EnvironmentPrinter.java;
+          java -cp out de.gesellix.example.EnvironmentPrinter
+      - name: Print env in Gradle
+        run: ./gradlew tasks --info --stacktrace

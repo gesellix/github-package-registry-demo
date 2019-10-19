@@ -22,6 +22,10 @@ dependencies {
   testImplementation("junit:junit:4.12")
 }
 
+logger.lifecycle("** dotted test: ${properties.getOrDefault("gradle.publish.test", "UNDEFINED")}")
+logger.lifecycle("** another test: ${properties.getOrDefault("gradle_publish_test", "UNDEFINED")}")
+logger.lifecycle("** env: ${System.getenv()}")
+
 fun findProperty(s: String) = project.findProperty(s) as String?
 
 github {

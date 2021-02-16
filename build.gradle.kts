@@ -1,42 +1,28 @@
 plugins {
   `java-library`
-  groovy
-  `maven-publish`
-  id("io.freefair.github.package-registry-maven-publish") version "4.1.2"
-  id("com.github.ben-manes.versions") version "0.25.0"
 }
 
 repositories {
   jcenter()
+  maven {
+    // works
+    setUrl("https://maven.pkg.github.com/gesellix/github-package-registry-demo")
+    // doesn't work
+//    setUrl("https://maven.pkg.github.com/gesellix")
+
+    credentials {
+      username = System.getenv("GITHUB_ACTOR") ?: findProperty("github.package-registry.username") as String
+      password = System.getenv("GITHUB_TOKEN") ?: findProperty("github.package-registry.password") as String
+    }
+  }
 }
 
 dependencies {
-  // This dependency is exported to consumers, that is to say found on their compile classpath.
-  api("org.apache.commons:commons-math3:3.6.1")
-  // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-  implementation("com.google.guava:guava:28.1-jre")
-  // Use the latest Groovy version for Spock testing
-  testImplementation("org.codehaus.groovy:groovy-all:2.5.7")
-  // Use the awesome Spock testing and specification framework even with Java
-  testImplementation("org.spockframework:spock-core:1.3-groovy-2.5")
-  testImplementation("junit:junit:4.12")
-}
-
-fun findProperty(s: String) = project.findProperty(s) as String?
-
-github {
-  slug.set("${property("github.package-registry.owner")}/${property("github.package-registry.repository")}")
-  username.set(System.getenv("GITHUB_ACTOR") ?: findProperty("github.package-registry.username"))
-  token.set(System.getenv("GITHUB_TOKEN") ?: findProperty("github.package-registry.password"))
-}
-
-publishing {
-  publications {
-    register("publicationName", MavenPublication::class) {
-      from(components["java"])
-      groupId = "de.gesellix"
-      artifactId = "pkg-registry-demo"
-      version = "0.0.1"
-    }
-  }
+  // works
+  api("de.gesellix:pkg-registry-demo:0.0.1")
+  // doesn't work
+//  api("de.gesellix:pkg-registry-demo:+")
+//  api("de.gesellix:pkg-registry-demo:latest")
+//  api("de.gesellix:pkg-registry-demo:latest.release")
+//  api("de.gesellix:pkg-registry-demo:(0+,)")
 }
